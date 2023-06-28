@@ -1,10 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Form = () => {
-    const formSubmissionHandler = (event) => {
-        event.preventDefault()
+    const [enteredName , setEnteredName] = useState('');
+    const [enteredEmail, setEnteredEmail] = useState('');
+    const [enteredMessage, setEnteredMessage] = useState('');
+
+    const [enteredNameIsValid, setEnteredNameIsValid] = useState(true);
+
+    // set enteredName to whatever use input to the event target
+    const nameInputChangeHandler = (event) => {
+        setEnteredName(event.target.value)
     };
+
+    const emailInputChangeHandler = (event) => {
+        setEnteredEmail(event.target.value)
+    };
+
+    const messageInputChangeHandler = (event) => {
+        setEnteredMessage(event.target.value)
+    };
+
+    const formSubmissionHandler = (event) => {
+        event.preventDefault();
+
+        if(enteredName.trim() === '') {
+            setEnteredNameIsValid(false);
+            return;
+        };
+        setEnteredNameIsValid(true);
+
+        console.log(enteredName);
+        console.log(enteredEmail)
+        console.log(enteredMessage)
     
+        setEnteredName('')
+        setEnteredEmail('')
+        setEnteredMessage('')
+    };
+
     // const firstNameClasses = firstNameHassError ? 'form-control invalid' : 'form-valid'
     // const emailClasses = emailHasError ? 'form-control invalid' : 'form-valid'
     // const messageNameClasses = messageHasError ? 'form-control invalid' : 'form-valid'
@@ -12,17 +45,35 @@ const Form = () => {
     return (
         <form onSubmit={formSubmissionHandler}>
             <div className='form'>
-                <div className='firstName'>
+                <div className='form-control'>
                     <label className='firstName'>First Name</label>
-                    <input type='text' id='name' placeholder='First Name'></input>
+                    <input 
+                    type='text' 
+                    id='name' 
+                    onChange={nameInputChangeHandler} 
+                    value={enteredName}
+                    ></input>
+                    {!enteredNameIsValid && <p className='error-text'>Name must not be empty!</p>}
                 </div>
-                <div className='email'>
+                <div className='form-control'>
                     <label className='email'>Email</label>
-                    <input type='email' id='email' placeholder='Email'></input>
+                    <input 
+                    type='email' 
+                    id='email' 
+                    onChange={emailInputChangeHandler}
+                    value={enteredEmail}
+                    >
+                    </input>
                 </div>
-                <div className='lastName'>
+                <div className='form-control'>
                     <label className="message">Message</label>
-                    <input type='text' id='message' placeholder='Share With Us'></input>
+                    <input 
+                    type='text' 
+                    id='message' 
+                    onChange={messageInputChangeHandler}
+                    value={enteredMessage}
+                    >
+                    </input>
                 </div>
                 <button>Submit</button>
             </div>
