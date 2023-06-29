@@ -6,6 +6,8 @@ const Form = () => {
     const [enteredMessage, setEnteredMessage] = useState('');
 
     const [enteredNameIsValid, setEnteredNameIsValid] = useState(true);
+    const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(true);
+    const [enteredMessageIsValid, setEnteredMessageIsValid] = useState(true);
 
     // set enteredName to whatever use input to the event target
     const nameInputChangeHandler = (event) => {
@@ -26,8 +28,20 @@ const Form = () => {
         if(enteredName.trim() === '') {
             setEnteredNameIsValid(false);
             return;
-        };
-        setEnteredNameIsValid(true);
+        }
+        // setEnteredNameIsValid(true);
+
+        // if(enteredEmail.trim() === '') {
+        //     setEnteredEmailIsValid(false);
+        //     return;
+        // }
+        // setEnteredEmailIsValid(true);
+
+        // if(enteredName.trim() === '') {
+        //     setEnteredNameIsValid(false);
+        //     return;
+        // }
+        // setEnteredNameIsValid(true);
 
         console.log(enteredName);
         console.log(enteredEmail)
@@ -62,8 +76,8 @@ const Form = () => {
                     id='email' 
                     onChange={emailInputChangeHandler}
                     value={enteredEmail}
-                    >
-                    </input>
+                    ></input>
+                    {!enteredEmailIsValid && <p className='error-text'>Email must not be empty!</p>}
                 </div>
                 <div className='form-control'>
                     <label className="message">Message</label>
@@ -72,8 +86,8 @@ const Form = () => {
                     id='message' 
                     onChange={messageInputChangeHandler}
                     value={enteredMessage}
-                    >
-                    </input>
+                    ></input>
+                    {!enteredMessageIsValid && <p className='error-text'>Message must not be empty!</p>}
                 </div>
                 <button>Submit</button>
             </div>
