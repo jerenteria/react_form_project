@@ -29,19 +29,14 @@ const Form = () => {
             setEnteredNameIsValid(false);
             return;
         }
-        // setEnteredNameIsValid(true);
+        setEnteredNameIsValid(true);
 
-        // if(enteredEmail.trim() === '') {
-        //     setEnteredEmailIsValid(false);
-        //     return;
-        // }
-        // setEnteredEmailIsValid(true);
+        if(enteredEmail.trim() === '') {
+            setEnteredEmailIsValid(false);
+            return;
+        }
+        setEnteredEmailIsValid(true);
 
-        // if(enteredName.trim() === '') {
-        //     setEnteredNameIsValid(false);
-        //     return;
-        // }
-        // setEnteredNameIsValid(true);
 
         console.log(enteredName);
         console.log(enteredEmail)
