@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
+import useInput from '../hooks/use-input';
+
+const isNotEmpty = value => value.trim() !== '';
+const isEmail = value => value.includes('@')
 
 const Form = () => {
-    const [enteredName , setEnteredName] = useState('');
-    const [enteredEmail, setEnteredEmail] = useState('');
-    const [enteredMessage, setEnteredMessage] = useState('');
+    const { value: enteredName, isValid: enteredInputIsValid, hasError: inputHasError, valueChangeHandler: inputChangeHandler } = useInput(value.trim() !== '');
+    
+    const { value: firstNameValue, isValid: firstNameIsValid, valueChangeHandler: firstNameChangeHandler, reset: resetFirstName } = useInput(isNotEmpty);
+    const { value: emaiValue, isValid: emailIsValid, valueChangeHandler: emailChangeHandler, reset: resetEmail } = useInput(isNotEmpty);
+    const { value: messageValue, isValid: messageIsValid, valueChangeHandler: messageChangeHandler, reset: resetMessage } = useInput(isNotEmpty);
 
-    const [enteredNameIsValid, setEnteredNameIsValid] = useState(true);
+    useInput(isNotEmpty);
+    useInput(isEmail);
+
+    // const [enteredNameIsValid, setEnteredNameIsValid] = useState(true);
     const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(true);
     const [enteredMessageIsValid, setEnteredMessageIsValid] = useState(true);
 
@@ -29,13 +38,7 @@ const Form = () => {
             setEnteredNameIsValid(false);
             return;
         }
-        setEnteredNameIsValid(true);
-
-        if(enteredEmail.trim() === '') {
-            setEnteredEmailIsValid(false);
-            return;
-        }
-        setEnteredEmailIsValid(true);
+            setEnteredNameIsValid(true);
 
 
         console.log(enteredName);
@@ -60,8 +63,9 @@ const Form = () => {
                     type='text' 
                     id='name' 
                     onChange={nameInputChangeHandler} 
-                    value={enteredName}
-                    ></input>
+                    value={firstNameValue}
+                    onChange={firstNameChangeHandler    }
+                    />
                     {!enteredNameIsValid && <p className='error-text'>Name must not be empty!</p>}
                 </div>
                 <div className='form-control'>
@@ -71,7 +75,7 @@ const Form = () => {
                     id='email' 
                     onChange={emailInputChangeHandler}
                     value={enteredEmail}
-                    ></input>
+                    />
                     {!enteredEmailIsValid && <p className='error-text'>Email must not be empty!</p>}
                 </div>
                 <div className='form-control'>
@@ -81,7 +85,7 @@ const Form = () => {
                     id='message' 
                     onChange={messageInputChangeHandler}
                     value={enteredMessage}
-                    ></input>
+                    />
                     {!enteredMessageIsValid && <p className='error-text'>Message must not be empty!</p>}
                 </div>
                 <button>Submit</button>
